@@ -1,10 +1,16 @@
+import Link from "next/link";
+
 import { supabase } from "../utils/supabase";
 
 export default function Home({ lessons }) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="w-full max-w-3xl mx-auto my-16 px-2">
       {lessons.map((lesson) => (
-        <p key={lesson.id}>{lesson.title}</p>
+        <Link href={`/${lesson.id}`} key={lesson.id}>
+          <a className="p-8 h-40 mb-4 rounded shadow text-xl flex">
+            {lesson.title}
+          </a>
+        </Link>
       ))}
     </div>
   );
