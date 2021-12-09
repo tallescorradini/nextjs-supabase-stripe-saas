@@ -1,7 +1,13 @@
 import initStripe from "stripe";
+import { useUser } from "../context/user";
 
 const Pricing = ({ plans }) => {
-  console.log(plans);
+  const { user, login, isLoading } = useUser();
+
+  const showSubscribedButton = !!user && !user.is_subscribed;
+  const showCreateAccountButton = !user;
+  const showManageSubscriptionButton = !!user && user.is_subscribed;
+
   return (
     <div className="w-full max-w-3xl mx-auto py-16 flex justify-around">
       {plans.map((plan) => (
@@ -10,6 +16,17 @@ const Pricing = ({ plans }) => {
           <p className="text-gray-500">
             ${plan.price / 100} / {plan.interval}
           </p>
+          {!isLoading ? (
+            <div>
+              {showSubscribedButton ? <button>Subscribe</button> : null}
+              {showCreateAccountButton ? (
+                <button onClick={login}>Create Account</button>
+              ) : null}
+              {showManageSubscriptionButton ? (
+                <button>Manage Subscription</button>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       ))}
     </div>
