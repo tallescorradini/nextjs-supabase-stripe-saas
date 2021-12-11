@@ -39,6 +39,23 @@ const Provider = ({ children }) => {
     });
   }, [user]);
 
+  useEffect(() => {
+    if (user) {
+      const subscription = supabase
+        .from(`profile:id=eq.${user.id}`)
+        .on("UPDATE", (payload) => {
+          console.log("supabaseOn");
+
+          setUser({ ...user, ...payload.new });
+        })
+        .subscribe();
+
+      return () => {
+        supabase.removeSubscription(subscription);
+      };
+    }
+  }, [user]);
+
   const login = async () => {
     await supabase.auth.signIn({
       provider: "github",
