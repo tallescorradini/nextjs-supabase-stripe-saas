@@ -1,6 +1,7 @@
 import initStripe from "stripe";
 import axios from "axios";
 import { loadStripe } from "@stripe/stripe-js";
+import Link from "next/link";
 
 import { useUser } from "../context/user";
 
@@ -36,7 +37,9 @@ const Pricing = ({ plans }) => {
                 <button onClick={login}>Create Account</button>
               ) : null}
               {showManageSubscriptionButton ? (
-                <button>Manage Subscription</button>
+                <Link href="/dashboard">
+                  <a>Manage Subscription</a>
+                </Link>
               ) : null}
             </div>
           ) : null}

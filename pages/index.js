@@ -5,7 +5,6 @@ import { useUser } from "../context/user";
 
 export default function Home({ lessons }) {
   const { user } = useUser();
-  console.log({ user });
 
   return (
     <div className="w-full max-w-3xl mx-auto my-16 px-2">
